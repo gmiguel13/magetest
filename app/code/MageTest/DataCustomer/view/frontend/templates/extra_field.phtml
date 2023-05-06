@@ -1,0 +1,32 @@
+<?php
+$helper = $this->helper('MageTest\DataCustomer\Helper\Data');
+
+?>
+<div class="field customer_ci required">
+    <label class="label" for="customer_ci">
+        <span><?= $block->escapeHtml(__('Number CI')) ?></span>
+    </label>
+    <div class="control">
+        <input type="number" min="0"  onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" name="customer_ci" id="customer_ci" value="" title="<?= $block->escapeHtmlAttr(__('CI Number')) ?>" class="input-text" data-validate="{required:true}">
+    </div>
+</div>
+
+<!--<div class="field customer_ci_ext ">
+    <label class="label" for="customer_ci_ext">
+        <span><?php /*= $block->escapeHtml(__('Ext CI2')) */?></span>
+    </label>
+    <div class="control">
+        <input type="number" pattern="^[0-9]" min="0" name="customer_ci_ext" id="customer_ci_ext" title="<?php /*= $block->escapeHtmlAttr(__('Ext CI')) */?>" class="input-text">
+    </div>
+</div>-->
+
+<div class="field customer_ci_ext required">
+    <label for="customer_ci_ext" class="label"><span><?= $block->escapeHtml(__('CI EXT')) ?></span></label>
+    <div class="control">
+        <select id="customer_ci_ext" name="customer_ci_ext" title="<?= $block->escapeHtmlAttr(__('EXT CI')) ?>" class="select" data-validate="{required:true}">
+            <?php foreach ($helper->getAllOptions() as $option => $data): ?>
+                <option value="<?= $data['value'] ?>"><?= $block->escapeHtml(__($data['label'])) ?></option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+</div>
