@@ -17,5 +17,8 @@ class Data extends AbstractHelper
     public function getAllOptions(){
         return $this->modelExtCi->getAllOptions();
     }
+    public function  getOptionText($value){
+        return $this->modelExtCi->getOptionText($value);
+    }
 
 }
