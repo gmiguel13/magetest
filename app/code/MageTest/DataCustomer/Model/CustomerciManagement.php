@@ -8,7 +8,7 @@ class CustomerciManagement implements \MageTest\DataCustomer\Api\CustomerciManag
     private $helper;
 
     public function __construct(
-        Data $helper,
+        Data $helper
     ){
         $this->helper=$helper;
     }
