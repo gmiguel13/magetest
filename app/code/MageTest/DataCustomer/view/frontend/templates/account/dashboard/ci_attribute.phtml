@@ -1,0 +1,20 @@
+<?php
+$helper = $this->helper('MageTest\DataCustomer\Helper\Data');
+?>
+<strong class="box-title">
+    <span>CI Information</span>
+</strong>
+
+<p>
+    <?php if($block->getCustomer()->getCustomAttribute('customer_ci')): ?>
+        <?= $block->escapeHtml($block->getCustomer()->getCustomAttribute('customer_ci')->getValue()) ?>
+    <?php else: ?>
+        <i>NotSet </i>
+    <?php endif;?>
+    <sub>Ext.</sub>
+    <?php if($block->getCustomer()->getCustomAttribute('customer_ci_ext')): ?>
+        <?= $helper->getOptionText( $block->escapeHtml($block->getCustomer()->getCustomAttribute('customer_ci_ext')->getValue())) ?>
+    <?php else: ?>
+        <i>NotSet</i>
+    <?php endif;?>
+</p><br>
