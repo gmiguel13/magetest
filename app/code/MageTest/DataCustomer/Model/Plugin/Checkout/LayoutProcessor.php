@@ -36,60 +36,68 @@ class LayoutProcessor
         \Magento\Checkout\Block\Checkout\LayoutProcessor $subject,
         array  $jsLayout
     ) {
+        if($this->helper->getStatusMod()) {
+            if($this->helper->showAtShipping()) {
+                $customer = $this->cui->getById($this->cus->getId());
+                $value_ci = "";
+                $value_ci_ext = "";
+                $options = array($this->helper->getAllOptions());
 
-        $customer = $this->cui->getById($this->cus->getId());
-        $value_ci="";
-        $value_ci_ext="";
-        $options=array($this->helper->getAllOptions());
+                if ($customer->getCustomAttribute('customer_ci')) {
+                    $value_ci = $customer->getCustomAttribute('customer_ci')->getValue();
+                    if(strcmp("0", $value_ci)==0){
+                        $value_ci="";
+                    }
+                }
+                if ($customer->getCustomAttribute('customer_ci_ext')) {
+                    $value_ci_ext = $customer->getCustomAttribute('customer_ci_ext')->getValue();
+                }
+                $value_ci_ext = $this->helper->getOptionText($value_ci_ext);
+                if(!$value_ci_ext){
+                    $value_ci_ext="";
+                }
 
-        if ($customer-> getCustomAttribute('customer_ci')) {
-            $value_ci = $customer->getCustomAttribute('customer_ci')->getValue();
+                $jsLayout['components']['checkout']['children']['steps']['children']['shipping-step']['children']
+                ['shippingAddress']['children']['shipping-address-fieldset']['children']['customer_ci'] = [
+                    'component' => 'Magento_Ui/js/form/element/abstract',
+                    'config' => [
+                        'customScope' => 'shippingAddress.custom_attributes',
+                        'template' => 'ui/form/field',
+                        'elementTmpl' => 'ui/form/element/input',
+                        'options' => [],
+                        'id' => 'customer_ci'
+                    ],
+                    'dataScope' => 'shippingAddress.custom_attributes.customer_ci',
+                    'label' => 'Ci',
+                    'provider' => 'checkoutProvider',
+                    'visible' => true,
+                    'validation' => [],
+                    'sortOrder' => 250,
+                    'id' => 'customer_ci',
+                    'value' => $value_ci
+                ];
+
+                $jsLayout['components']['checkout']['children']['steps']['children']['shipping-step']['children']
+                ['shippingAddress']['children']['shipping-address-fieldset']['children']['customer_ci_ext'] = [
+                    'component' => 'Magento_Ui/js/form/element/abstract',
+                    'config' => [
+                        'customScope' => 'shippingAddress.custom_attributes',
+                        'template' => 'ui/form/field',
+                        'elementTmpl' => 'ui/form/element/input',
+                        'options' => [],
+                        'id' => 'customer_ci_ext'
+                    ],
+                    'dataScope' => 'shippingAddress.custom_attributes.customer_ci_ext',
+                    'label' => 'Ext',
+                    'provider' => 'checkoutProvider',
+                    'visible' => true,
+                    'validation' => [],
+                    'sortOrder' => 251,
+                    'id' => 'customer_ci_ext',
+                    'value' => $value_ci_ext
+                ];
+            }
         }
-        if ($customer-> getCustomAttribute('customer_ci_ext')) {
-            $value_ci_ext = $customer->getCustomAttribute('customer_ci_ext')->getValue();
-        }
-        $value_ci_ext=$this->helper->getOptionText($value_ci_ext);
-
-        $jsLayout['components']['checkout']['children']['steps']['children']['shipping-step']['children']
-        ['shippingAddress']['children']['shipping-address-fieldset']['children']['customer_ci'] = [
-            'component' => 'Magento_Ui/js/form/element/abstract',
-            'config' => [
-                'customScope' => 'shippingAddress.custom_attributes',
-                'template' => 'ui/form/field',
-                'elementTmpl' => 'ui/form/element/input',
-                'options' => [],
-                'id' => 'customer_ci'
-            ],
-            'dataScope' => 'shippingAddress.custom_attributes.customer_ci',
-            'label' => 'Ci',
-            'provider' => 'checkoutProvider',
-            'visible' => true,
-            'validation' => [],
-            'sortOrder' => 250,
-            'id' => 'customer_ci',
-            'value'=>$value_ci
-        ];
-
-        $jsLayout['components']['checkout']['children']['steps']['children']['shipping-step']['children']
-        ['shippingAddress']['children']['shipping-address-fieldset']['children']['customer_ci_ext'] = [
-            'component' => 'Magento_Ui/js/form/element/abstract',
-            'config' => [
-                'customScope' => 'shippingAddress.custom_attributes',
-                'template' => 'ui/form/field',
-                'elementTmpl' => 'ui/form/element/input',
-                'options' => [],
-                'id' => 'customer_ci_ext'
-            ],
-            'dataScope' => 'shippingAddress.custom_attributes.customer_ci_ext',
-            'label' => 'Ext',
-            'provider' => 'checkoutProvider',
-            'visible' => true,
-            'validation' => [],
-            'sortOrder' => 251,
-            'id' => 'customer_ci_ext',
-            'value'=>$value_ci_ext
-        ];
-
 
         return $jsLayout;
     }
