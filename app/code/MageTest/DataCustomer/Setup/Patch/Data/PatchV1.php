@@ -80,7 +80,9 @@ class Patchv1 implements DataPatchInterface, PatchRevertableInterface
                 'user_defined' => 1,
                 'sort_order' => 999,
                 'position' => 999,
-                'system' => 0
+                'system' => 0,
+                'is_used_in_grid' => true,
+                'is_visible_in_grid' => true,
             ]
         );
         $attributeSetId = $eavSetup->getDefaultAttributeSetId(Customer::ENTITY);
@@ -110,6 +112,8 @@ class Patchv1 implements DataPatchInterface, PatchRevertableInterface
                 'sort_order' => 999,
                 'position' => 999,
                 'system' => 0,
+                'is_used_in_grid' => true,
+                'is_visible_in_grid' => true,
             ]
         );
         $attributeSetId = $eavSetup->getDefaultAttributeSetId(Customer::ENTITY);
