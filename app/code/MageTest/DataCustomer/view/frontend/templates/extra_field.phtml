@@ -2,6 +2,8 @@
 $helper = $this->helper('MageTest\DataCustomer\Helper\Data');
 
 ?>
+<?php if($helper->getStatusMod()):?>
+<?php if($helper->showAtForm()):?>
 <div class="field customer_ci required">
     <label class="label" for="customer_ci">
         <span><?= $block->escapeHtml(__('Number CI')) ?></span>
@@ -21,3 +23,5 @@ $helper = $this->helper('MageTest\DataCustomer\Helper\Data');
         </select>
     </div>
 </div>
+<?php endif;?>
+<?php endif;?>
